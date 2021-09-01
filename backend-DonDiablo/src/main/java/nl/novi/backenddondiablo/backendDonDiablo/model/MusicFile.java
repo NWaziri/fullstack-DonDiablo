@@ -18,9 +18,41 @@ public class MusicFile {
     private String uploader;
 
     @Column
-    private Date uploadDate;
+    private String uploadDate;
 
     @Column
     @Lob
     private byte[] audioFile;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getUploader() {
+        return uploader;
+    }
+
+    public void setUploader(String uploader) {
+        this.uploader = uploader;
+    }
+
+    public String getUploadDate() {
+        return uploadDate;
+    }
+
+    public void setUploadDate(String uploadDate) {
+        this.uploadDate = uploadDate;
+    }
+
+    public byte[] getAudioFile() {
+        return audioFile;
+    }
+
+    public void setAudioFile(byte[] audioFile) {
+        this.audioFile = audioFile;
+    }
 }
