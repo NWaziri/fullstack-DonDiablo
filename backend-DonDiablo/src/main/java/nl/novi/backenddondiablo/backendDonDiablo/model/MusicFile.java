@@ -20,10 +20,6 @@ public class MusicFile {
     @Column
     private String uploadDate;
 
-    @Column
-    @Lob
-    private byte[] audioFile;
-
     public String getFileName() {
         return fileName;
     }
@@ -48,11 +44,4 @@ public class MusicFile {
         this.uploadDate = uploadDate;
     }
 
-    public byte[] getAudioFile() {
-        return audioFile;
-    }
-
-    public void setAudioFile(byte[] audioFile) {
-        this.audioFile = audioFile;
-    }
 }
