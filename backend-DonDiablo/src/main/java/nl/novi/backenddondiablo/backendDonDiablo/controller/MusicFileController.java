@@ -1,6 +1,11 @@
 package nl.novi.backenddondiablo.backendDonDiablo.controller;
 
-import nl.novi.backenddondiablo.backendDonDiablo.service.MusicFileService;
+//import nl.novi.backenddondiablo.backendDonDiablo.service.MusicFileService;
+import nl.novi.backenddondiablo.backendDonDiablo.model.Comment;
+import nl.novi.backenddondiablo.backendDonDiablo.model.MusicFile;
+import nl.novi.backenddondiablo.backendDonDiablo.repository.CommentRepository;
+import nl.novi.backenddondiablo.backendDonDiablo.service.CommentService;
+import nl.novi.backenddondiablo.backendDonDiablo.service.MusicFileServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
@@ -15,7 +20,13 @@ import java.io.IOException;
 public class MusicFileController {
 
     @Autowired
-    private MusicFileService musicFileService;
+    private MusicFileServiceImplementation musicFileService;
+
+    @Autowired
+    private CommentRepository commentRepository;
+
+//    @Autowired
+//    private CommentService commentService;
 
     @GetMapping(value = "/files/{filename:.+}")
     @ResponseBody
@@ -26,6 +37,8 @@ public class MusicFileController {
 
     @PostMapping(value = "/upload")
     public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("uploader") String uploader) throws IOException {
+//        MusicFile musicFile = new MusicFile();
+//        commentRepository.save(comment);
         musicFileService.save(file, uploader);
         return new ResponseEntity<Object>("file uploaded", HttpStatus.OK);
     }

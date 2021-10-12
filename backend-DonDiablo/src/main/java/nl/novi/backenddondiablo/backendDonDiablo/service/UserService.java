@@ -57,8 +57,6 @@ public class UserService {
             user.setPassword(encryptedPassword);
             user.setEmail(userPostRequest.getEmail());
             user.setEnabled(true);
-//            user.addAuthority("ROLE_USER");
-//            user.addAuthority(user.getAuthorities());
             Authority authority = new Authority(userPostRequest.getUsername(), "ROLE_USER");
             user.addAuthority(authority);
             user.getAuthorities();

@@ -1,7 +1,9 @@
 package nl.novi.backenddondiablo.backendDonDiablo.service;
 
 import helpers.CurrentDate;
+import nl.novi.backenddondiablo.backendDonDiablo.model.Comment;
 import nl.novi.backenddondiablo.backendDonDiablo.model.MusicFile;
+import nl.novi.backenddondiablo.backendDonDiablo.repository.CommentRepository;
 import nl.novi.backenddondiablo.backendDonDiablo.repository.MusicFileRepository;
 import nl.novi.backenddondiablo.backendDonDiablo.utils.AudioConvertor;
 
@@ -9,21 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.sound.sampled.AudioFormat;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
+//implements MusicFileService
 @Service
-public class MusicFileServiceImplementation implements MusicFileService {
+public class MusicFileServiceImplementation  {
 
     private Path root = Paths.get("uploads");
     private Path converted = Paths.get("converted");
@@ -31,7 +29,10 @@ public class MusicFileServiceImplementation implements MusicFileService {
     @Autowired
     private MusicFileRepository musicFileRepository;
 
-    @Override
+    @Autowired
+    private CommentRepository commentRepository;
+
+//    @Override
     public void init() {
         try {
             Files.createDirectory(root);
@@ -41,7 +42,7 @@ public class MusicFileServiceImplementation implements MusicFileService {
         }
     }
 
-    @Override
+//    @Override
     public void save(MultipartFile file, String uploader) throws IOException {
         CurrentDate currentDate = new CurrentDate();
         String date = currentDate.generateDate();
@@ -56,11 +57,17 @@ public class MusicFileServiceImplementation implements MusicFileService {
             AudioConvertor audioConvertor = new AudioConvertor(source.toString(), target.toString());
             audioConvertor.convertToMP3();
 
+            Comment comment = new Comment("Empty");
+
+//            comment.setMusicFile(musicFile)
 
             MusicFile musicFile = new MusicFile();
             musicFile.setFileName(fileName + ".mp3");
             musicFile.setUploader(uploader);
             musicFile.setUploadDate(date);
+            musicFile.setComment(comment);
+//            comment.setMusicFile(musicFile);
+            commentRepository.save(comment);
 
             musicFileRepository.save(musicFile);
 
@@ -71,7 +78,7 @@ public class MusicFileServiceImplementation implements MusicFileService {
         }
     }
 
-    @Override
+//    @Override
     public UrlResource load(String filename) {
         try {
             Path file = converted.resolve(filename);
@@ -90,7 +97,7 @@ public class MusicFileServiceImplementation implements MusicFileService {
     }
 
 
-    @Override
+//    @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(root.toFile());
     }

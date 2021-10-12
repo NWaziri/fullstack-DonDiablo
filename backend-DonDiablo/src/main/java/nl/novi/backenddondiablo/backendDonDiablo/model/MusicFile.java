@@ -1,7 +1,6 @@
 package nl.novi.backenddondiablo.backendDonDiablo.model;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "music_files")
@@ -19,6 +18,14 @@ public class MusicFile {
 
     @Column
     private String uploadDate;
+
+    @OneToOne
+    @JoinColumn(name = "comment_id", referencedColumnName = "id")
+    private Comment comment;
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
 
     public String getFileName() {
         return fileName;
@@ -44,4 +51,13 @@ public class MusicFile {
         this.uploadDate = uploadDate;
     }
 
+    public MusicFile() {
+
+    }
+
+    public MusicFile(String fileName, String uploader, String uploadDate) {
+        this.fileName = fileName;
+        this.uploader = uploader;
+        this.uploadDate = uploadDate;
+    }
 }
