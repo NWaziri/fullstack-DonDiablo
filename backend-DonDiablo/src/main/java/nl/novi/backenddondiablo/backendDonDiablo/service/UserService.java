@@ -49,7 +49,7 @@ public class UserService {
     }
 
     public String createUser(UserPostRequest userPostRequest) {
-//        try {
+        try {
             String encryptedPassword = passwordEncoder.encode(userPostRequest.getPassword());
 
             User user = new User();
@@ -72,12 +72,11 @@ public class UserService {
 
             User newUser = userRepository.save(user);
             return newUser.getUsername();
+        } catch (Exception ex) {
+            throw new BadRequestException("Cannot create user.");
         }
-//        catch (Exception ex) {
-//            throw new BadRequestException("Cannot create user.");
-//        }
+    }
 
-//    }
 
     public void deleteUser(String username) {
         if (userRepository.existsById(username)) {

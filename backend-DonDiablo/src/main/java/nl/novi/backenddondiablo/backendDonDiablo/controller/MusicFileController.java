@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
+
 @RestController
 public class MusicFileController {
 
@@ -37,8 +38,6 @@ public class MusicFileController {
 
     @PostMapping(value = "/upload")
     public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("uploader") String uploader) throws IOException {
-//        MusicFile musicFile = new MusicFile();
-//        commentRepository.save(comment);
         musicFileService.save(file, uploader);
         return new ResponseEntity<Object>("file uploaded", HttpStatus.OK);
     }

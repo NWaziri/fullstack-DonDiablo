@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Entity
 public class Comment {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,4 +41,5 @@ public class Comment {
     public void setMusicFile(MusicFile musicFile) {
         this.musicFile = musicFile;
     }
+
 }

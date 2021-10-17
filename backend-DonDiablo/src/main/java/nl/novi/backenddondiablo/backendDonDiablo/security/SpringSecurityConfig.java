@@ -72,12 +72,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic()
                 .and()
+                .csrf().disable()
+//                .cors()
+//                .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/users/").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "comment/**").hasRole("admin")
+                .antMatchers(HttpMethod.OPTIONS,"/upload").permitAll()
+                .antMatchers("/comment/**").permitAll()
                 .antMatchers("/upload").hasRole("USER")
                 .antMatchers("/files/**").hasRole("ADMIN")
                 .and()
-                .csrf().disable()
                 .formLogin().disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

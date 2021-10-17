@@ -4,5 +4,4 @@ values ('nang', '$2a$10$.BzdLWwqLaVf225/E9JPCe/uIkDL4ZFJmBOR56Km6J7FYqIeWMZf6', 
 
 INSERT into authorities (username, authority)
 values  ('nang', 'ROLE_USER'),
-        ('admin', 'ROLE_USER'),
         ('admin', 'ROLE_ADMIN');
