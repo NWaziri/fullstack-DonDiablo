@@ -96,6 +96,10 @@ public class MusicFileServiceImplementation  {
         }
     }
 
+    public MusicFile getMusicFile(String name) {
+        return musicFileRepository.getMusicFileByUploader(name);
+    }
+
 
 //    @Override
     public void deleteAll() {

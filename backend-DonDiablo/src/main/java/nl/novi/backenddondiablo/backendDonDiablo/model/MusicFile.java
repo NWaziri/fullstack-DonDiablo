@@ -1,5 +1,10 @@
 package nl.novi.backenddondiablo.backendDonDiablo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,11 +25,26 @@ public class MusicFile {
     private String uploadDate;
 
     @OneToOne
+//    @JsonBackReference
+//    @JsonManagedReference
+//    @JsonIdentityReference
     @JoinColumn(name = "comment_id", referencedColumnName = "id")
     private Comment comment;
 
     public void setComment(Comment comment) {
         this.comment = comment;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Comment getComment() {
+        return comment;
     }
 
     public String getFileName() {

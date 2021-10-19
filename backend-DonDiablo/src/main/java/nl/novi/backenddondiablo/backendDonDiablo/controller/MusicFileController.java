@@ -40,10 +40,17 @@ public class MusicFileController {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
+    @GetMapping(value = "/fileinfo/{name}")
+    public ResponseEntity<Object> getFileinfo(@PathVariable("name") String name) {
+        return ResponseEntity.ok().body(musicFileService.getMusicFile(name));
+    }
+
     @PostMapping(value = "/upload")
     public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("uploader") String uploader, @RequestParam("email") String email) throws IOException {
         musicFileService.save(file, uploader);
         emailSenderService.sendEmail(email);
         return new ResponseEntity<Object>("file uploaded", HttpStatus.OK);
     }
+
+
 }

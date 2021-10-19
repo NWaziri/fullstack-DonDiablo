@@ -1,11 +1,13 @@
 package nl.novi.backenddondiablo.backendDonDiablo;
 
 //import nl.novi.backenddondiablo.backendDonDiablo.service.MusicFileService;
+import nl.novi.backenddondiablo.backendDonDiablo.model.MusicFile;
 import nl.novi.backenddondiablo.backendDonDiablo.service.MusicFileServiceImplementation;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.annotation.Resource;
 import java.nio.file.Files;
@@ -32,4 +34,6 @@ public class BackendDonDiabloApplication implements CommandLineRunner {
 			musicFileService.init();
 		}
 	}
+
+
 }
