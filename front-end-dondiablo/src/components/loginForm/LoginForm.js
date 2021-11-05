@@ -1,16 +1,14 @@
-import React, {useRef, useState} from "react";
+import React, {useContext, useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../Button/Button";
+import {AuthContext} from "../../context/AuthContext";
 
-function LoginForm() {
+function LoginForm({submitFunction}) {
     const { handleSubmit, register } = useForm();
 
-    const onSubmit =  (data) => {
-       console.log(data)
-    }
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(submitFunction)}>
             <label htmlFor="username-field">
                 Gebruikersnaam:
                 <input
