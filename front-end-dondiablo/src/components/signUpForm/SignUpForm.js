@@ -2,10 +2,17 @@ import React, {useRef, useState} from "react";
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import Button from "../Button/Button";
+import Input from "../Input/Input";
 
 function SignUpForm({ submitFunction }) {
-    const { handleSubmit, register } = useForm();
+    const { handleSubmit, register } = useForm({
+        mode: "onChange"
+    });
     const [signUpSuccess, toggleSignUpSucces] = useState(false);
+
+    const onFormSubmit = (data) => {
+        console.log("new data", data)
+    }
 
     return (
         <>
@@ -46,7 +53,7 @@ function SignUpForm({ submitFunction }) {
                 />
                 {signUpSuccess === true && <p> registreren is geluk je wordt doorgestuurd naar de inlog pagina</p>}
             </form>
-        </>
+       </>
     )
 }
 
