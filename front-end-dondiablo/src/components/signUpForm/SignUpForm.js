@@ -4,6 +4,8 @@ import axios from "axios";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 
+import styles from "./SignUpForm.module.css"
+
 function SignUpForm({ submitFunction }) {
     const { handleSubmit, register } = useForm({
         mode: "onChange"
@@ -16,43 +18,50 @@ function SignUpForm({ submitFunction }) {
 
     return (
         <>
-            <form onSubmit={handleSubmit(submitFunction)}>
-                <label htmlFor="email-field">
-                    Email:
-                    <input
-                        type="email"
-                        id="email-field"
-                        name="email"
-                        {...register("email")}
+            <div className={styles["form-wrapper"]}>
+                <form className={styles["submit-form"]} onSubmit={handleSubmit(submitFunction)}>
+                    <div className={styles["form-item"]}>
+                        <label className={styles["input-label"]} htmlFor="email-field">
+                            Email:
+                            <input className={styles["input-field"]}
+                                   type="email"
+                                   id="email-field"
+                                   name="email"
+                                   {...register("email")}
+                            />
+                        </label>
+                    </div>
+                    <div className={styles["form-item"]}>
+                        <label className={styles["input-label"]} htmlFor="username-field">
+                            Gebruikersnaam:
+                            <input className={styles["input-field"]}
+                                   type="text"
+                                   id="username-field"
+                                   name="username"
+                                   {...register("username")}
+                            />
+                        </label>
+                    </div>
+                    <div className={styles["form-item"]}>
+                        <label className={styles["input-label"]} htmlFor="password-field">
+                            Wachtwoord:
+                            <input className={styles["input-field"]}
+                                   type="password"
+                                   id="password-field"
+                                   name="password"
+                                   {...register("password")}
+                            />
+                        </label>
+                    </div>
+                    <Button
+                        type="submit"
+                        className={styles["register-button"]}
+                        text="registreren"
                     />
-                </label>
+                    {signUpSuccess === true && <p> registreren is geluk je wordt doorgestuurd naar de inlog pagina</p>}
+                </form>
+            </div>
 
-                <label htmlFor="username-field">
-                    Gebruikersnaam:
-                    <input
-                        type="text"
-                        id="username-field"
-                        name="username"
-                        {...register("username")}
-                    />
-                </label>
-
-                <label htmlFor="password-field">
-                    Wachtwoord:
-                    <input
-                        type="password"
-                        id="password-field"
-                        name="password"
-                        {...register("password")}
-                    />
-                </label>
-                <Button
-                    type="submit"
-                    className="register-button"
-                    text="registreren"
-                />
-                {signUpSuccess === true && <p> registreren is geluk je wordt doorgestuurd naar de inlog pagina</p>}
-            </form>
        </>
     )
 }

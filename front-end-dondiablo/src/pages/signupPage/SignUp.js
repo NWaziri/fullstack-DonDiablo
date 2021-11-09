@@ -5,6 +5,8 @@ import axios from "axios";
 import {useHistory} from "react-router-dom";
 import SignUpForm from "../../components/signUpForm/SignUpForm";
 
+import styles from "./SignUp.module.css"
+
 
 
 function SignUp() {
@@ -29,10 +31,13 @@ function SignUp() {
 
     return (
         <>
-            <p>This is the signup page</p>
-            <SignUpForm
-                submitFunction={onSubmit}
-            />
+            <div className={styles.container}>
+                <h1 className={styles.header}>Maak een account aan</h1>
+                <SignUpForm
+                    submitFunction={onSubmit}
+                />
+            </div>
+
         </>
     )
 }
