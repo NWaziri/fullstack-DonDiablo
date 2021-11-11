@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import {AuthContext} from "../../context/AuthContext";
 import axios from "axios";
+import Button from "../Button/Button";
+import styles from "./FileUpload.module.css"
 
 function FileUpload() {
     const { user } = useContext(AuthContext);
@@ -42,25 +44,30 @@ function FileUpload() {
 
     return (
         <>
-            <p>This is the file upload component</p>
-            <div>
-                <input type="file" name="file" onChange={changeHandler} />
-                {isFilePicked ? (
+            <div className={styles.container}>
+                <label className={styles["file-label"]} htmlFor="file-input">
+                    <span>Klik hier om te uploaden!</span>
+                    <input
+                        type="file"
+                        name="file"
+                        id="file-input"
+                        onChange={changeHandler}
+                    />
+                </label>
+                {isFilePicked &&
                     <div>
-                        <p>Filename: {selectedFile.name}</p>
-                        <p>Filetype: {selectedFile.type}</p>
-                        <p>Size in bytes: {selectedFile.size}</p>
+                        <p className={styles.bestand}>
+                            Bestand: {selectedFile.name}
+                        </p>
                     </div>
-
-                ) : (
-                    <p>Select a file to show details</p>
-                )}
-                <div>
-                    <button onClick={handleSubmit}>Submit</button>
-                </div>
-                {selectedFile && console.log(selectedFile)}
+                }
+                <Button
+                    type="submit"
+                    className={styles["send-button"]}
+                    text="versturen"
+                    onClick={handleSubmit}
+                />
             </div>
-
         </>
     )
 }

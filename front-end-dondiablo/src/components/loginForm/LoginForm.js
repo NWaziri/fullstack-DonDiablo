@@ -4,36 +4,45 @@ import axios from "axios";
 import Button from "../Button/Button";
 import {AuthContext} from "../../context/AuthContext";
 
+import styles from "./LoginForm.module.css"
+
 function LoginForm({submitFunction}) {
     const { handleSubmit, register } = useForm();
 
     return (
-        <form onSubmit={handleSubmit(submitFunction)}>
-            <label htmlFor="username-field">
-                Gebruikersnaam:
-                <input
-                    type="text"
-                    id="username-field"
-                    name="username"
-                    {...register("username")}
+        <div className={styles["form-wrapper"]}>
+            <form className={styles["login-form"]} onSubmit={handleSubmit(submitFunction)}>
+                    <div className={styles["form-item"]}>
+                        <label className={styles["input-label"]} htmlFor="username-field">
+                            Gebruikersnaam:
+                            <input
+                                className={styles["input-field"]}
+                                type="text"
+                                id="username-field"
+                                name="username"
+                                {...register("username")}
+                            />
+                        </label>
+                    </div>
+                    <div className={styles["form-item"]}>
+                        <label className={styles["input-label"]} htmlFor="password-field">
+                            Wachtwoord:
+                            <input
+                                className={styles["input-field"]}
+                                type="password"
+                                id="password-field"
+                                name="password"
+                                {...register("password")}
+                            />
+                        </label>
+                    </div>
+                <Button
+                    type="submit"
+                    className={styles["login-button"]}
+                    text="login"
                 />
-            </label>
-
-            <label htmlFor="password-field">
-                Wachtwoord:
-                <input
-                    type="password"
-                    id="password-field"
-                    name="password"
-                    {...register("password")}
-                />
-            </label>
-            <Button
-                type="submit"
-                className="login-button"
-                text="login"
-            />
-        </form>
+            </form>
+        </div>
     )
 }
 

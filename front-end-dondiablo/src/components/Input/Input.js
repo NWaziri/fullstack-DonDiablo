@@ -1,20 +1,22 @@
 import React from 'react';
-import {useForm} from "react-hook-form";
 
-function Input({htmlFor, label, register1, name, type, id}) {
-    const { register } = useForm();
+function Input({htmlFor, label, onChange, type, id, name, labelClass, inputClass}) {
     return (
         <>
             <label
+                className={labelClass}
                 htmlFor={htmlFor}
             >
                 {label}:
+                <input
+                    className={inputClass}
+                    type={type}
+                    id={id}
+                    name={name}
+                    onChange={onChange}
+                />
             </label>
-            <input
-                type={type}
-                id={id}
-                {...register(name)}
-            />
+
         </>
     )
 }

@@ -1,6 +1,10 @@
-
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import Input from "../../components/Input/Input";
+import styles from "./Admin.module.css"
+import Button from "../../components/Button/Button";
+import {get} from "react-hook-form";
+import FileInfo from "../../components/FileInfo/FileInfo";
 
 function Admin() {
     const [uploader, setUploader] = useState("")
@@ -35,7 +39,6 @@ function Admin() {
             console.log(e)
         }
     }
-
 
     const fileInformation = () => {
         for (let i = 0; i < fileInfo.length; i++) {
@@ -83,69 +86,67 @@ function Admin() {
 
     return (
         <>
-            <p>This is the admin page</p>
-
-            {/*<input*/}
-            {/*    onChange={handleChange}*/}
-            {/*/>*/}
-            <label htmlFor="name-field">
-                Name producer:
-                <input
+            <div className={styles.container}>
+                <Input
+                    labelClass={styles["label-input"]}
+                    inputClass={styles.input}
+                    htmlFor="name-field"
+                    label="Naam producer"
                     type="text"
                     id="name-field"
-                    name="name"
+                    name="name-field"
                     onChange={handleChange}
                 />
-            </label>
-            <button
-                type="submit"
-                onClick={event => {
-                    getFileInfo(uploader)
-                }}
-            >
-                retrieve files info
-            </button>
-
-            {fileInfo && fileInfo.map((file) => {
-                return (
-                    <div key={file.id} className="card">
-                        <p>{file.comment.id}</p>
-                        <p>{file.fileName}</p>
-                        <p>{file.comment.content}</p>
-                    </div>
-                )
-            })}
-            <label htmlFor="id-field">
-                Id:
-                <input
+                <Button
+                    type="submit"
+                    className={styles["get-data-button"]}
+                    text="Haal de files op!"
+                    onClick={event => {
+                        getFileInfo(uploader)
+                    }}
+                />
+                {fileInfo && fileInfo.map((file) => {
+                    return (
+                        <FileInfo
+                            divClass={styles["file-info"]}
+                            inputClass={styles.input}
+                            key={file.id}
+                            commentId={file.comment.id}
+                            fileName={file.fileName}
+                            commentContent={file.comment.content}
+                        />
+                    )
+                })}
+                <Input
+                    labelClass={styles["label-input"]}
+                    inputClass={styles.input}
+                    htmlFor="id-field"
+                    label="Id producer"
                     type="number"
                     id="id-field"
-                    name="id"
+                    name="id-field"
                     onChange={handleId}
                 />
-            </label>
-            <button
-                type="submit"
-                // onClick={handleId}
-            >
-                select id
-            </button>
-            <label htmlFor="comment-field">
-                Comment:
-                <input
+                <Input
+                    labelClass={styles["label-input"]}
+                    inputClass={styles.input}
+                    htmlFor="comment-field"
+                    label="Comment"
                     type="text"
                     id="comment-field"
-                    name="comment"
+                    name="comment-field"
                     onChange={handleCommentChange}
                 />
-            </label>
-            <p>{id}</p>
-            <button
-                type="submit"
-                onClick={updateComment}
-            >
-                update comment
-            </button>
+                <Button
+                    type="submit"
+                    className={styles["update-comment-button"]}
+                    text="Update comment"
+                    onClick={event => {
+                        updateComment(id)
+                    }}
+                />
+
+            </div>
         </>
     )
 };

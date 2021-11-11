@@ -11,7 +11,7 @@
     background: transparent;
 }
 
-.submit-form {
+.login-form {
     width: 100%;
     margin: 0 auto;
     padding: 60px 30px;
@@ -63,7 +63,7 @@
     outline: 0;
 }
 
-.register-button {
+.login-button {
     display: block;
     cursor: pointer;
     width: 100%;
@@ -76,7 +76,7 @@
     transition: background-color .2s;
 }
 
-.register-button:hover:focus:active {
+.login-button:hover:focus:active {
     color: #fe78b5;
     background-color: white;
     outline: 0;

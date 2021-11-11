@@ -4,8 +4,10 @@ import {AuthContext} from "../../context/AuthContext";
 
 import axios from "axios";
 
+import styles from "./Login.module.css"
+
 function Login() {
-    const { login, logout } = useContext(AuthContext)
+    const { login } = useContext(AuthContext)
 
     const onSubmit = async (data) => {
         console.log("data", data)
@@ -19,23 +21,13 @@ function Login() {
         }
     }
 
-    const handleClick = () => {
-        logout();
-    }
-
     return (
         <>
-            <p>This is the login page</p>
-            <LoginForm
-                submitFunction={onSubmit}
-            />
-            <button
-                type="submit"
-                className="test"
-                onClick={handleClick}
-            >
-                uitloggen
-            </button>
+            <div className={styles.container}>
+                <LoginForm
+                    submitFunction={onSubmit}
+                />
+            </div>
         </>
     )
 }

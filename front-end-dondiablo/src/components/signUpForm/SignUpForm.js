@@ -7,14 +7,11 @@ import Input from "../Input/Input";
 import styles from "./SignUpForm.module.css"
 
 function SignUpForm({ submitFunction }) {
+
     const { handleSubmit, register } = useForm({
         mode: "onChange"
     });
     const [signUpSuccess, toggleSignUpSucces] = useState(false);
-
-    const onFormSubmit = (data) => {
-        console.log("new data", data)
-    }
 
     return (
         <>
@@ -23,7 +20,8 @@ function SignUpForm({ submitFunction }) {
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="email-field">
                             Email:
-                            <input className={styles["input-field"]}
+                            <input
+                                   className={styles["input-field"]}
                                    type="email"
                                    id="email-field"
                                    name="email"
@@ -34,7 +32,8 @@ function SignUpForm({ submitFunction }) {
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="username-field">
                             Gebruikersnaam:
-                            <input className={styles["input-field"]}
+                            <input
+                                   className={styles["input-field"]}
                                    type="text"
                                    id="username-field"
                                    name="username"
@@ -45,7 +44,8 @@ function SignUpForm({ submitFunction }) {
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="password-field">
                             Wachtwoord:
-                            <input className={styles["input-field"]}
+                            <input
+                                   className={styles["input-field"]}
                                    type="password"
                                    id="password-field"
                                    name="password"
