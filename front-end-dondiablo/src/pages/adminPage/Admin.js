@@ -11,6 +11,7 @@ function Admin() {
     const [fileInfo, setFileInfo] = useState( [])
     const [comment, setComment] = useState( "")
     const [id, setId] = useState(0);
+    const [fileName, setFileName] = useState("")
     const [fileData, setFileData] = useState({})
 
 
@@ -27,6 +28,11 @@ function Admin() {
     const handleId = (event) => {
         console.log("id",event.target.value)
         setId(event.target.value);
+    }
+
+    const handleFileName = (event) => {
+        console.log("fileName: ", event.target.value)
+        setFileName(event.target.value)
     }
 
 
@@ -75,77 +81,110 @@ function Admin() {
             console.log(e)
         }
     }
-    //
-    // useEffect(() => {
-    //     if (uploader) {
-    //         fetchComment(fileInfo.comment.id)
-    //
-    //     }
-    // }, [])
 
+    const downloadFile = async () => {
+        const jwt = localStorage.getItem("jwt")
+        try {
+            const response = await axios.get(`http://localhost:8080/files/${fileName}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`,
+                    responseType: "blob"
+                }
+            })
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute('download', fileName);
+            document.body.appendChild(link)
+            link.click()
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     return (
         <>
             <div className={styles.container}>
-                <Input
-                    labelClass={styles["label-input"]}
-                    inputClass={styles.input}
-                    htmlFor="name-field"
-                    label="Naam producer"
-                    type="text"
-                    id="name-field"
-                    name="name-field"
-                    onChange={handleChange}
-                />
-                <Button
-                    type="submit"
-                    className={styles["get-data-button"]}
-                    text="Haal de files op!"
-                    onClick={event => {
-                        getFileInfo(uploader)
-                    }}
-                />
-                {fileInfo && fileInfo.map((file) => {
-                    return (
-                        <FileInfo
-                            divClass={styles["file-info"]}
-                            inputClass={styles.input}
-                            key={file.id}
-                            commentId={file.comment.id}
-                            fileName={file.fileName}
-                            commentContent={file.comment.content}
+                <div className={styles.download}>
+                    <Input
+                        labelClass={styles["label-download"]}
+                        inputClass={styles["input-field"]}
+                        htmlFor="name-field"
+                        label="Voer de file naam in om de demo te downloaden"
+                        type="text"
+                        id="name-field"
+                        name="name-field"
+                        onChange={handleFileName}
+                    />
+                    <Button
+                        type="submit"
+                        className={styles["download-button"]}
+                        text="Download file"
+                        onClick={event => {
+                            downloadFile(fileName)
+                        }}
+                    />
+                </div>
+                <div className={styles["input-container"]}>
+                    <Input
+                        labelClass={styles["label-input"]}
+                        inputClass={styles["input-field"]}
+                        htmlFor="name-field"
+                        label="Naam producer"
+                        type="text"
+                        id="name-field"
+                        name="name-field"
+                        onChange={handleChange}
+                    />
+                    <Button
+                        type="submit"
+                        className={styles["get-data-button"]}
+                        text="Haal de files op!"
+                        onClick={event => {
+                            getFileInfo(uploader)
+                        }}
+                    />
+                </div>
+                <div className={styles["comment-section"]}>
+                    {fileInfo && fileInfo.map((file) => {
+                        return (
+                                <FileInfo
+                                    inputClass={styles.input}
+                                    key={file.id}
+                                    commentId={file.comment.id}
+                                    fileName={file.fileName}
+                                    commentContent={file.comment.content}
+                                />
+                            )
+                    })}
+                    <div className={styles["update-section"]}>
+                        <Input
+                            labelClass={styles["label-input"]}
+                            inputClass={styles["input-field"]}
+                            htmlFor="id-field"
+                            label="Commentaar id"
+                            type="number"
+                            id="id-field"
+                            name="id-field"
+                            onChange={handleId}
                         />
-                    )
-                })}
-                <Input
-                    labelClass={styles["label-input"]}
-                    inputClass={styles.input}
-                    htmlFor="id-field"
-                    label="Id producer"
-                    type="number"
-                    id="id-field"
-                    name="id-field"
-                    onChange={handleId}
-                />
-                <Input
-                    labelClass={styles["label-input"]}
-                    inputClass={styles.input}
-                    htmlFor="comment-field"
-                    label="Comment"
-                    type="text"
-                    id="comment-field"
-                    name="comment-field"
-                    onChange={handleCommentChange}
-                />
-                <Button
-                    type="submit"
-                    className={styles["update-comment-button"]}
-                    text="Update comment"
-                    onClick={event => {
-                        updateComment(id)
-                    }}
-                />
 
+                        />
+                        <textarea
+                            onChange={handleCommentChange}
+                        >
+                            Beste ..., we hebben je demo beluisterd ....
+                        </textarea>
+                        <Button
+                            type="submit"
+                            className={styles["update-comment-button"]}
+                            text="Update comment"
+                            onClick={event => {
+                                updateComment(id)
+                            }}
+                        />
+                    </div>
+                </div>
             </div>
         </>
     )

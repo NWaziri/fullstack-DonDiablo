@@ -16,12 +16,19 @@
     margin: 0 auto;
     padding: 60px 30px;
     box-sizing: border-box;
-    background: #516b8c;
+    background: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
     border-radius: 30px;
+    border: 1px solid lightblue;
 }
+
+.login-form:hover {
+    background-color: #384b69 ;
+    transition: all 0.5s;
+}
+
 
 .form-item {
     position: relative;
@@ -36,8 +43,14 @@
     margin-top: 12px;
     border-radius: 30px;
     box-sizing: border-box;
-    border: 1px solid #e57b1d;
+
 }
+
+.form-item:hover {
+    background-color: #abdef3;
+    transition: all 0.5s;
+}
+
 
 .input-label {
     display: block;
@@ -58,10 +71,18 @@
     display: inline-block;
     position: relative;
     border: 0;
-    color: black;
+    color: white;
+    font-size: larger;
     background-color:transparent;
     outline: 0;
 }
+
+.input-field:hover {
+    color: #b96c3c;
+    transition: color 0.5s;
+}
+
+
 
 .login-button {
     display: block;

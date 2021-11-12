@@ -19,36 +19,36 @@ function SignUpForm({ submitFunction }) {
                 <form className={styles["submit-form"]} onSubmit={handleSubmit(submitFunction)}>
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="email-field">
-                            Email:
                             <input
                                    className={styles["input-field"]}
                                    type="email"
                                    id="email-field"
                                    name="email"
+                                   placeholder="Email"
                                    {...register("email")}
                             />
                         </label>
                     </div>
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="username-field">
-                            Gebruikersnaam:
                             <input
                                    className={styles["input-field"]}
                                    type="text"
                                    id="username-field"
                                    name="username"
+                                   placeholder="Gebruikersnaam"
                                    {...register("username")}
                             />
                         </label>
                     </div>
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="password-field">
-                            Wachtwoord:
                             <input
                                    className={styles["input-field"]}
                                    type="password"
                                    id="password-field"
                                    name="password"
+                                   placeholder="Wachtwoord"
                                    {...register("password")}
                             />
                         </label>

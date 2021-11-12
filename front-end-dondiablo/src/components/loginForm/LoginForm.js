@@ -14,24 +14,24 @@ function LoginForm({submitFunction}) {
             <form className={styles["login-form"]} onSubmit={handleSubmit(submitFunction)}>
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="username-field">
-                            Gebruikersnaam:
                             <input
                                 className={styles["input-field"]}
                                 type="text"
                                 id="username-field"
                                 name="username"
+                                placeholder="Gebruikersnaam"
                                 {...register("username")}
                             />
                         </label>
                     </div>
                     <div className={styles["form-item"]}>
                         <label className={styles["input-label"]} htmlFor="password-field">
-                            Wachtwoord:
                             <input
                                 className={styles["input-field"]}
                                 type="password"
                                 id="password-field"
                                 name="password"
+                                placeholder="Wachtwoord"
                                 {...register("password")}
                             />
                         </label>
