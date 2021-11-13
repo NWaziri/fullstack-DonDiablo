@@ -3,25 +3,30 @@ import axios from "axios";
 import {AuthContext} from "../../context/AuthContext";
 import styles from "./Comment.module.css"
 import Button from "../Button/Button";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoadingMessage from "../LoadingMessage/LoadingMessage";
 
 
 function Comment() {
     const [musicFiles, setMusicFiles] = useState([]);
-    const [uploadSuccess, toggleUploadSuccess] = useState(false)
-    const [counter, setCounter] = useState(0)
+    const [loading, toggleLoading] = useState(false);
+    const [error, toggleError] = useState(false);
+
 
     const { user } = useContext(AuthContext)
 
     const getComments = async () => {
+        toggleLoading(true)
+        toggleError(false)
         console.log("user", user)
         try{
-            const response = await axios.get(`http://localhost:8080/filesinfo/${user.username}`)
-            console.log(response.data)
-            setMusicFiles(response.data)
-            toggleUploadSuccess(true)
-            // setCounter(counter + 1)
+            const {data} = await axios.get(`http://localhost:8080/filesinfo/${user.username}`)
+            console.log(data)
+            setMusicFiles(data)
+            toggleLoading(false)
         } catch (e) {
             console.log(e)
+            toggleError(true)
         }
     }
 
@@ -45,6 +50,15 @@ function Comment() {
                     text="Commentaar ophalen"
                     onClick={handleSubmit}
                 />
+                {error &&
+                    <ErrorMessage
+                        message="Sorry er is iets mis gegaan"
+                    />
+                }
+                {loading &&
+                <LoadingMessage
+                    message="Loading...."
+                />}
                 {musicFiles && musicFiles.map((musicFile) => {
                     return (
                         <div key={musicFile.comment.id} className={styles.items}>
@@ -58,6 +72,7 @@ function Comment() {
                     )
                 })}
             </div>
+
 
         </>
 

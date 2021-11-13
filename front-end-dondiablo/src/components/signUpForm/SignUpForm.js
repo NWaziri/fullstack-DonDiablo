@@ -11,7 +11,6 @@ function SignUpForm({ submitFunction }) {
     const { handleSubmit, register } = useForm({
         mode: "onChange"
     });
-    const [signUpSuccess, toggleSignUpSucces] = useState(false);
 
     return (
         <>
@@ -58,7 +57,6 @@ function SignUpForm({ submitFunction }) {
                         className={styles["register-button"]}
                         text="registreren"
                     />
-                    {signUpSuccess === true && <p> registreren is geluk je wordt doorgestuurd naar de inlog pagina</p>}
                 </form>
             </div>
 

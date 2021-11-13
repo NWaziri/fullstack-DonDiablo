@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.success-message {
+    color: #9b2f66;
+    font-size: large;
+    position: static;
+    margin-top: 10px;
+    margin-left: 0%;
+}

@@ -5,6 +5,7 @@ import styles from "./Admin.module.css"
 import Button from "../../components/Button/Button";
 import {get} from "react-hook-form";
 import FileInfo from "../../components/FileInfo/FileInfo";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 function Admin() {
     const [uploader, setUploader] = useState("")
@@ -13,6 +14,9 @@ function Admin() {
     const [id, setId] = useState(0);
     const [fileName, setFileName] = useState("")
     const [fileData, setFileData] = useState({})
+    const [downloadError, toggleDownloadError] = useState(false)
+    const [filesError, toggleFilesError] = useState(false)
+    const [commentError, toggleCommentsError] = useState(false)
 
 
     const handleChange = (event) => {
@@ -37,12 +41,14 @@ function Admin() {
 
 
     const getFileInfo = async (username) => {
+        toggleFilesError(false)
         try {
             const { data } = await axios.get(`http://localhost:8080/filesinfo/${username}`)
             console.log("retrieved file info data", data)
             setFileInfo(data)
         } catch (e) {
             console.log(e)
+            toggleFilesError(true)
         }
     }
 
@@ -55,35 +61,35 @@ function Admin() {
     }
 
     const updateComment = async () => {
+        toggleCommentsError(false)
         const jwt = localStorage.getItem("jwt")
         console.log("comment: ", comment)
         console.log("uploader ", uploader)
         const file = fileInformation();
         console.log("file", file)
-        // for (let i = 0; i < fileInfo.length; i++) {
-        //     console.log(fileInfo[i])
-        // }
-        const newComment = {
-            content: comment,
-            musicFile: {
-                fileName: file.fileName,
-                uploader: file.uploader,
-                uploadDate: file.uploadDate
-            }
-        };
         console.log("comment object 2", comment)
         try {
+            const newComment = {
+                content: comment,
+                musicFile: {
+                    fileName: file.fileName,
+                    uploader: file.uploader,
+                    uploadDate: file.uploadDate
+                }
+            };
             const response = await axios.put(`http://localhost:8080/comment/${id}`, newComment, {
                 Authorization: `Bearer ${jwt}`
             })
             console.log(response)
         } catch (e) {
             console.log(e)
+            toggleCommentsError(true)
         }
     }
 
     const downloadFile = async () => {
         const jwt = localStorage.getItem("jwt")
+        toggleDownloadError(true)
         try {
             const response = await axios.get(`http://localhost:8080/files/${fileName}`, {
                 headers: {
@@ -99,6 +105,7 @@ function Admin() {
             link.click()
         } catch (e) {
             console.log(e)
+            toggleDownloadError(true)
         }
     }
 
@@ -124,6 +131,12 @@ function Admin() {
                             downloadFile(fileName)
                         }}
                     />
+                    {downloadError &&
+                        <ErrorMessage
+                            message="Het ingevoerde filenaam is niet correct"
+                        />
+                    }
+
                 </div>
                 <div className={styles["input-container"]}>
                     <Input
@@ -136,6 +149,7 @@ function Admin() {
                         name="name-field"
                         onChange={handleChange}
                     />
+
                     <Button
                         type="submit"
                         className={styles["get-data-button"]}
@@ -144,6 +158,14 @@ function Admin() {
                             getFileInfo(uploader)
                         }}
                     />
+                    <div className={styles["files-error"]}>
+                        {filesError &&
+                        <ErrorMessage
+                            message="Naam klopt niet."
+                        />
+                        }
+                    </div>
+
                 </div>
                 <div className={styles["comment-section"]}>
                     {fileInfo && fileInfo.map((file) => {
@@ -183,6 +205,13 @@ function Admin() {
                                 updateComment(id)
                             }}
                         />
+                        <div className={styles["comment-error"]}>
+                            {commentError &&
+                            <ErrorMessage
+                                message="Commentaar geven niet gelukt"
+                            />
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

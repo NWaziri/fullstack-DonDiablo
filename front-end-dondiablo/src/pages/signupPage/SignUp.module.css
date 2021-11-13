@@ -21,3 +21,11 @@
     margin-top: 3%;
     color: #abdef3;
 }
+
+.registration-status {
+    color: white;
+    font-size: large;
+    position: static;
+    margin-top: 10px;
+    margin-left: 0%;
+}
