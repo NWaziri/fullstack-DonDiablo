@@ -22,6 +22,7 @@ import java.io.IOException;
 
 
 @RestController
+@RequestMapping(value = "/files")
 public class MusicFileController {
 
     @Autowired
@@ -33,16 +34,21 @@ public class MusicFileController {
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/files/{filename:.+}")
+    @GetMapping(value = "/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Object> getFile(@PathVariable String filename) {
         UrlResource file = musicFileService.load(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 
-    @GetMapping(value = "/fileinfo/{name}")
-    public ResponseEntity<Object> getFileinfo(@PathVariable("name") String name) {
-        return ResponseEntity.ok().body(musicFileService.getMusicFile(name));
+//    @GetMapping(value = "/fileinfo/{name}")
+//    public ResponseEntity<Object> getFileinfo(@PathVariable("name") String name) {
+//        return ResponseEntity.ok().body(musicFileService.getMusicFile(name));
+//    }
+
+    @GetMapping("/filesinfo/{name}")
+    public ResponseEntity<Object> getFilesInfo(@PathVariable("name") String name) {
+        return ResponseEntity.ok().body(musicFileService.getFilesInfo(name));
     }
 
     @PostMapping(value = "/upload")
@@ -51,6 +57,5 @@ public class MusicFileController {
         emailSenderService.sendEmail(email);
         return new ResponseEntity<Object>("file uploaded", HttpStatus.OK);
     }
-
 
 }

@@ -73,14 +73,14 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .csrf().disable()
-//                .cors()
-//                .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST,"/users/").permitAll()
-                .antMatchers(HttpMethod.OPTIONS, "comment/**").hasRole("admin")
-                .antMatchers(HttpMethod.OPTIONS,"/upload").permitAll()
-                .antMatchers("/comment/**").permitAll()
-                .antMatchers("/upload").hasRole("USER")
+                .antMatchers(HttpMethod.OPTIONS, "/comment/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS,"/files/upload").permitAll()
+                .antMatchers(HttpMethod.OPTIONS, "/files/**").permitAll()
+                .antMatchers("/comment/**").hasRole("ADMIN")
+                .antMatchers("/files/upload").hasRole("USER")
+                .antMatchers("/files/filesinfo/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers("/files/**").hasRole("ADMIN")
                 .and()
                 .formLogin().disable()
@@ -89,7 +89,5 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
-
-
 
 }

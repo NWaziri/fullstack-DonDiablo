@@ -1,0 +1,156 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 10px;
+    width: 200px;
+    margin-left: 40%;
+}
+
+.get-data-button {
+    margin: 5px;
+    padding: 5px;
+}
+
+.label-input {
+    color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+.input-field {
+    display: block;
+    background-color: white;
+    border-radius: 5px;
+    width: 50px;
+}
+.input-field:hover {
+    background-color: #abdef3;
+    width: 190px;
+    height: 20px;
+    transition:all .5s;
+}
+
+.file-info {
+    border: 1px solid blue;
+    text-align: center;
+}
+
+
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.update-section {
+    display: flex;
+    flex-direction: column;
+    border: 1px pink solid;
+    margin-left: 38%;
+    margin-right: 30%;
+}
+
+.comment-box {
+    display: block;
+    height: 100px;
+}
+
+textarea {
+    margin: 10px;
+    padding: 5px;
+}
+textarea:focus {
+    background: none repeat scroll 0 0 #faa1db ;
+    border-radius: 5px;
+    width: 350px;
+    height: 150px;
+    transition: all 0.5s;
+}
+
+.get-data-button {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+}
+
+.get-data-button:hover {
+    background-color: #abdef3;
+    color: #faa1db;
+    transition:all 0.5s;
+
+}
+
+.update-comment-button {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+
+}
+
+.update-comment-button:hover {
+    background-color: #abdef3;
+    color: #faa1db;
+    transition:all 0.5s;
+    height: 50px;
+}
+
+.download {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 10px
+}
+
+.download:hover {
+    background-color: #9b2f66;
+}
+
+.label-download {
+    color: white;
+}
+
+.download-button {
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.download-button:hover:focus {
+    background-color: #abdef3;
+    color: #faa1db;
+    transition:all 0.2s;
+}
+
+.comment-error {
+    margin: 10px;
+    text-align: center;
+}
+
+.files-error {
+    display: flex;
+    justify-content: center;
+}
+

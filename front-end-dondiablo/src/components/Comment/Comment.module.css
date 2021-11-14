@@ -1,0 +1,47 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.items {
+    border: 1px black solid;
+    width: 330px;
+    height: 200px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background-color: transparent;
+    border-radius: 20px;
+}
+
+.file-name {
+    margin: 10px;
+    color: #e57b1d;
+}
+
+.comment {
+    margin: 10px;
+    color: #d2fc20;
+}
+
+.comment-button {
+    display: block;
+    cursor: pointer;
+    width: 150px;
+    margin: 10px auto 0;
+    padding: 10px 0;
+    font-size: larger;
+    color: #e57b1d;
+    background-color: #abdef3;
+    border-radius: 30px;
+    transition: background-color .2s;
+    margin-left: 10%;
+}

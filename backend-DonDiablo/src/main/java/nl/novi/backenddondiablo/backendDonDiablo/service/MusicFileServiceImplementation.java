@@ -3,6 +3,7 @@ package nl.novi.backenddondiablo.backendDonDiablo.service;
 import helpers.CurrentDate;
 import nl.novi.backenddondiablo.backendDonDiablo.model.Comment;
 import nl.novi.backenddondiablo.backendDonDiablo.model.MusicFile;
+import nl.novi.backenddondiablo.backendDonDiablo.model.User;
 import nl.novi.backenddondiablo.backendDonDiablo.repository.CommentRepository;
 import nl.novi.backenddondiablo.backendDonDiablo.repository.MusicFileRepository;
 import nl.novi.backenddondiablo.backendDonDiablo.utils.AudioConvertor;
@@ -57,7 +58,7 @@ public class MusicFileServiceImplementation  {
             AudioConvertor audioConvertor = new AudioConvertor(source.toString(), target.toString());
             audioConvertor.convertToMP3();
 
-            Comment comment = new Comment("Empty");
+            Comment comment = new Comment("We zijn bezig met het beoordelen van de demo, binnen 24 uur ontvangt u commentaar");
 
 //            comment.setMusicFile(musicFile)
 
@@ -100,9 +101,12 @@ public class MusicFileServiceImplementation  {
         return musicFileRepository.getMusicFileByUploader(name);
     }
 
+    public Iterable<MusicFile> getFilesInfo(String name) {
+        return musicFileRepository.getMusicFilesByUploader(name);
+    }
 
 //    @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(root.toFile());
-    }
+//    public void deleteAll() {
+//        FileSystemUtils.deleteRecursively(root.toFile());
+//    }
 }
