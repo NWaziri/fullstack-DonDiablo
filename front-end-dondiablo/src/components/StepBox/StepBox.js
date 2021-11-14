@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./StepBox.module.css"
 
 function StepBox({ header, text, divClassName, paragraphClassName, headerClassName, children }) {
     return (

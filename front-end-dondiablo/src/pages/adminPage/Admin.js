@@ -13,41 +13,39 @@ function Admin() {
     const [comment, setComment] = useState( "")
     const [id, setId] = useState(0);
     const [fileName, setFileName] = useState("")
-    const [fileData, setFileData] = useState({})
     const [downloadError, toggleDownloadError] = useState(false)
     const [filesError, toggleFilesError] = useState(false)
     const [commentError, toggleCommentsError] = useState(false)
 
 
     const handleChange = (event) => {
-        // console.log(event.target.value)
         setUploader(event.target.value)
     }
 
     const handleCommentChange = (event) => {
-        console.log("comment", event.target.value)
         setComment(event.target.value);
     }
 
     const handleId = (event) => {
-        console.log("id",event.target.value)
         setId(event.target.value);
     }
 
     const handleFileName = (event) => {
-        console.log("fileName: ", event.target.value)
         setFileName(event.target.value)
     }
 
 
     const getFileInfo = async (username) => {
         toggleFilesError(false)
+        const jwt = localStorage.getItem("jwt")
         try {
-            const { data } = await axios.get(`http://localhost:8080/filesinfo/${username}`)
-            console.log("retrieved file info data", data)
+            const { data } = await axios.get(`http://localhost:8080/files/filesinfo/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
             setFileInfo(data)
         } catch (e) {
-            console.log(e)
             toggleFilesError(true)
         }
     }
@@ -63,11 +61,7 @@ function Admin() {
     const updateComment = async () => {
         toggleCommentsError(false)
         const jwt = localStorage.getItem("jwt")
-        console.log("comment: ", comment)
-        console.log("uploader ", uploader)
         const file = fileInformation();
-        console.log("file", file)
-        console.log("comment object 2", comment)
         try {
             const newComment = {
                 content: comment,
@@ -78,18 +72,19 @@ function Admin() {
                 }
             };
             const response = await axios.put(`http://localhost:8080/comment/${id}`, newComment, {
-                Authorization: `Bearer ${jwt}`
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
             })
             console.log(response)
         } catch (e) {
-            console.log(e)
             toggleCommentsError(true)
         }
     }
 
     const downloadFile = async () => {
         const jwt = localStorage.getItem("jwt")
-        toggleDownloadError(true)
+        toggleDownloadError(false)
         try {
             const response = await axios.get(`http://localhost:8080/files/${fileName}`, {
                 headers: {
@@ -104,7 +99,6 @@ function Admin() {
             document.body.appendChild(link)
             link.click()
         } catch (e) {
-            console.log(e)
             toggleDownloadError(true)
         }
     }

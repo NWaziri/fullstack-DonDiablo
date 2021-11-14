@@ -1,9 +1,6 @@
 import React from "react";
-
 import StepBox from "../../components/StepBox/StepBox";
 import styles from "./Home.module.css"
-import background from "../../assests/background.jpg"
-import Input from "../../components/Input/Input";
 
 function Home() {
     return (

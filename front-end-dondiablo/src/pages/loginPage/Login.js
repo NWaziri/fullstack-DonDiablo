@@ -14,17 +14,13 @@ function Login() {
     const { login } = useContext(AuthContext);
 
     const onSubmit = async (data) => {
-        console.log("data", data)
-        console.log("login", login)
         toggleError(false)
         toggleLoginSuccess(false)
         try {
             const { data: {jwt} } = await axios.post("http://localhost:8080/authenticate", data)
-            console.log("response login jwt_token: ", jwt)
             login(jwt)
             toggleLoginSuccess(true)
         } catch (e) {
-            console.log(e)
             toggleError(true)
         }
     }

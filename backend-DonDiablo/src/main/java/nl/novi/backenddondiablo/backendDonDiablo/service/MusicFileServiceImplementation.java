@@ -33,7 +33,6 @@ public class MusicFileServiceImplementation  {
     @Autowired
     private CommentRepository commentRepository;
 
-//    @Override
     public void init() {
         try {
             Files.createDirectory(root);
@@ -43,7 +42,6 @@ public class MusicFileServiceImplementation  {
         }
     }
 
-//    @Override
     public void save(MultipartFile file, String uploader) throws IOException {
         CurrentDate currentDate = new CurrentDate();
         String date = currentDate.generateDate();
@@ -60,26 +58,20 @@ public class MusicFileServiceImplementation  {
 
             Comment comment = new Comment("We zijn bezig met het beoordelen van de demo, binnen 24 uur ontvangt u commentaar");
 
-//            comment.setMusicFile(musicFile)
 
             MusicFile musicFile = new MusicFile();
             musicFile.setFileName(fileName + ".mp3");
             musicFile.setUploader(uploader);
             musicFile.setUploadDate(date);
             musicFile.setComment(comment);
-//            comment.setMusicFile(musicFile);
             commentRepository.save(comment);
-
             musicFileRepository.save(musicFile);
 
-            System.out.println("input stream: " + file.getInputStream());
-            System.out.println("path: " + this.root.resolve(file.getOriginalFilename()));
         } catch (Exception e) {
             throw new RuntimeException("Could not store the file. Error: " + e.getMessage());
         }
     }
 
-//    @Override
     public UrlResource load(String filename) {
         try {
             Path file = converted.resolve(filename);
@@ -100,13 +92,8 @@ public class MusicFileServiceImplementation  {
     public MusicFile getMusicFile(String name) {
         return musicFileRepository.getMusicFileByUploader(name);
     }
-
     public Iterable<MusicFile> getFilesInfo(String name) {
         return musicFileRepository.getMusicFilesByUploader(name);
     }
 
-//    @Override
-//    public void deleteAll() {
-//        FileSystemUtils.deleteRecursively(root.toFile());
-//    }
 }

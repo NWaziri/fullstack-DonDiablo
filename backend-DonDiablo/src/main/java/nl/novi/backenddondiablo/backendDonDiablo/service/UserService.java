@@ -63,12 +63,6 @@ public class UserService {
             System.out.println("username: " + user.getUsername());
             System.out.println("password: " + user.getPassword());
             System.out.println("email: " + user.getEmail());
-//            for (String s : userPostRequest.getAuthorities()) {
-//                if (!s.startsWith("ROLE_")) {
-//                    s = "ROLE_" + s;
-//                }
-//                user.addAuthority(s);
-//            }
 
             User newUser = userRepository.save(user);
             return newUser.getUsername();

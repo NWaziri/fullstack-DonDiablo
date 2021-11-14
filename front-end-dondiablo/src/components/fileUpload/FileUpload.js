@@ -20,19 +20,14 @@ function FileUpload() {
 
     const sendFile = async () => {
         const jwt = localStorage.getItem("jwt");
-        console.log("jwt access in upload file component", jwt);
         const formData = new FormData();
         formData.append("file", selectedFile);
         formData.append("uploader", user.username);
         formData.append("email", user.email);
-        console.log("form data: ", formData.get("file"));
-        console.log("form data: ", formData.get("uploader"));
-        console.log("form data: ", formData.get("email"));
-
         toggleSendSuccess(false)
 
         try {
-            const response = await axios.post("http://localhost:8080/upload", formData, {
+            const response = await axios.post("http://localhost:8080/files/upload", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${jwt}`,
@@ -41,7 +36,6 @@ function FileUpload() {
             })
             toggleSendSuccess(true)
         } catch (e) {
-            console.log(e);
             toggleSendError(true);
         }
     }
