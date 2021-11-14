@@ -18,7 +18,6 @@ function Comment() {
     const getComments = async () => {
         toggleLoading(true)
         toggleError(false)
-        console.log("user", user)
         const jwt = localStorage.getItem("jwt")
         try{
             const {data} = await axios.get(`http://localhost:8080/files/filesinfo/${user.username}`, {
@@ -26,11 +25,9 @@ function Comment() {
                     Authorization: `Bearer ${jwt}`
                 }
             })
-            console.log(data)
             setMusicFiles(data)
             toggleLoading(false)
         } catch (e) {
-            console.log(e)
             toggleError(true)
         }
     }

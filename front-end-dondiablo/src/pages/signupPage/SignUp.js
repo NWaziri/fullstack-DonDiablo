@@ -13,14 +13,12 @@ function SignUp() {
     const history = useHistory();
 
     const onSubmit = async (data) => {
-        console.log("onSubmit signup function", data);
         toggleSignUpSucces(false);
         toggleError(false);
         try {
             const response = await axios.post("http://localhost:8080/users", data);
             console.log(response);
         } catch (e) {
-            console.log(e);
             toggleError(true);
         }
         toggleSignUpSucces(true);

@@ -16,21 +16,13 @@ function AuthContextProvider({ children }) {
 
 
     const fetchToken = async (jwt_token) => {
-        console.log("fetch data functie jwt", jwt_token)
         const decoded_jwt = jwtDecode(jwt_token)
-        console.log("decoded jwt", decoded_jwt)
         localStorage.setItem("jwt", jwt_token)
         const { sub: userName } = decoded_jwt
-        console.log("username destuctured", userName)
-        console.log("username", userName)
         try {
             // request kan zonder jwt token vraag dit
             const { data: { username }, data: { email }, data: { authorities } } = await axios.get(`http://localhost:8080/users/${userName}`)
             const role = authorities[0].authority
-            console.log("destructerd username", username)
-            console.log("destructerd email",email)
-            console.log(authorities)
-            // console.log("user data requested", response.data)
             setAuthState({
                     ...authState,
                     authorized: true,
@@ -51,7 +43,6 @@ function AuthContextProvider({ children }) {
 
         if(jwt_token !== undefined && authState.user === null && validToken(jwt_token)) {
             fetchToken(jwt_token)
-            console.log("Er is een token")
         } else {
             setAuthState(
                 {
@@ -67,7 +58,6 @@ function AuthContextProvider({ children }) {
     }
 
     const logOut = () => {
-        console.log("logout function")
         localStorage.removeItem("jwt");
         setAuthState(
             {

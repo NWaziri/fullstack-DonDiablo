@@ -13,29 +13,24 @@ function Admin() {
     const [comment, setComment] = useState( "")
     const [id, setId] = useState(0);
     const [fileName, setFileName] = useState("")
-    const [fileData, setFileData] = useState({})
     const [downloadError, toggleDownloadError] = useState(false)
     const [filesError, toggleFilesError] = useState(false)
     const [commentError, toggleCommentsError] = useState(false)
 
 
     const handleChange = (event) => {
-        // console.log(event.target.value)
         setUploader(event.target.value)
     }
 
     const handleCommentChange = (event) => {
-        console.log("comment", event.target.value)
         setComment(event.target.value);
     }
 
     const handleId = (event) => {
-        console.log("id",event.target.value)
         setId(event.target.value);
     }
 
     const handleFileName = (event) => {
-        console.log("fileName: ", event.target.value)
         setFileName(event.target.value)
     }
 
@@ -49,10 +44,8 @@ function Admin() {
                     Authorization: `Bearer ${jwt}`
                 }
             })
-            console.log("retrieved file info data", data)
             setFileInfo(data)
         } catch (e) {
-            console.log(e)
             toggleFilesError(true)
         }
     }
@@ -68,11 +61,7 @@ function Admin() {
     const updateComment = async () => {
         toggleCommentsError(false)
         const jwt = localStorage.getItem("jwt")
-        console.log("comment: ", comment)
-        console.log("uploader ", uploader)
         const file = fileInformation();
-        console.log("file", file)
-        console.log("comment object 2", comment)
         try {
             const newComment = {
                 content: comment,
@@ -89,7 +78,6 @@ function Admin() {
             })
             console.log(response)
         } catch (e) {
-            console.log(e)
             toggleCommentsError(true)
         }
     }
@@ -111,7 +99,6 @@ function Admin() {
             document.body.appendChild(link)
             link.click()
         } catch (e) {
-            console.log(e)
             toggleDownloadError(true)
         }
     }

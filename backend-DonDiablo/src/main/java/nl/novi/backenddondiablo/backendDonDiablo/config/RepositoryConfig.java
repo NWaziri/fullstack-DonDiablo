@@ -13,7 +13,6 @@ public class RepositoryConfig implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
-//        config.exposeIdsFor(MusicFile.class);
         config.exposeIdsFor(Comment.class);
     }
 }
