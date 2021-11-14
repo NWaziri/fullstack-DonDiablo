@@ -32,7 +32,7 @@ function FileUpload() {
         toggleSendSuccess(false)
 
         try {
-            const response = await axios.post("http://localhost:8080/upload", formData, {
+            const response = await axios.post("http://localhost:8080/files/upload", formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${jwt}`,

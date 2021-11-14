@@ -42,8 +42,13 @@ function Admin() {
 
     const getFileInfo = async (username) => {
         toggleFilesError(false)
+        const jwt = localStorage.getItem("jwt")
         try {
-            const { data } = await axios.get(`http://localhost:8080/filesinfo/${username}`)
+            const { data } = await axios.get(`http://localhost:8080/files/filesinfo/${username}`, {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            })
             console.log("retrieved file info data", data)
             setFileInfo(data)
         } catch (e) {
@@ -78,7 +83,9 @@ function Admin() {
                 }
             };
             const response = await axios.put(`http://localhost:8080/comment/${id}`, newComment, {
-                Authorization: `Bearer ${jwt}`
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
             })
             console.log(response)
         } catch (e) {
@@ -89,7 +96,7 @@ function Admin() {
 
     const downloadFile = async () => {
         const jwt = localStorage.getItem("jwt")
-        toggleDownloadError(true)
+        toggleDownloadError(false)
         try {
             const response = await axios.get(`http://localhost:8080/files/${fileName}`, {
                 headers: {
